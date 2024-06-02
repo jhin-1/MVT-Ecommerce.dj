@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/home/ahmedyosri/PyCharm projects/shopsite/venv/bin/python3" "$0" "$@"
-' '''
+#!/home/ahmed/PycharmProjects/Django-project/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
