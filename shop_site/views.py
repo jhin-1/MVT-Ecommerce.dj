@@ -6,7 +6,7 @@ from .models import *
 def index(request):
     context = {
         "id_product": Product.objects.all(),
-        "category": MainCategory.objects.all(),
+        "id_category": Subcategory.objects.all(),
     }
     return render(request, 'pages/index.html', context)
 

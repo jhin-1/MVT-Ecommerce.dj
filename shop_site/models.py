@@ -12,6 +12,7 @@ class MainCategory(models.Model):
 
 class Subcategory(models.Model):
     Main = models.ForeignKey(MainCategory, null=True, blank=True, on_delete=models.CASCADE, verbose_name="main category", related_name="MainCategory")
+    image_cateogry = models.ImageField(upload_to="photos/cateogry", blank=True, null=True, verbose_name="image_cateogry")
     name = models.CharField(max_length=50, blank=True, null=True, verbose_name="subcategory")
 
     def __str__(self):
@@ -43,11 +44,13 @@ class Variations(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True, verbose_name="ProTiitle")
     description = models.TextField(blank=True, null=True, verbose_name="ProDescription")
-    image = models.ImageField(blank=True, null=True, verbose_name="image")
+    image = models.ImageField(upload_to='photos', blank=True, null=True, verbose_name="image")
     price = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True, verbose_name="price")
     discount = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True, verbose_name="discount")
     quantity = models.IntegerField(default=0, blank=True, null=True, verbose_name="quantity")
     variations = models.ManyToManyField(Variations, blank=True, null=True, verbose_name="variations")
+    subcategory = models.ForeignKey(Subcategory, null=True, blank=True, on_delete=models.CASCADE, verbose_name="subcategory", related_name="SubCategory")
+
 
     def __str__(self):
         return self.title
