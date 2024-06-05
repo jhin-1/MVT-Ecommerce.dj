@@ -51,8 +51,13 @@ class Product(models.Model):
     variations = models.ManyToManyField(Variations, blank=True, null=True, verbose_name="variations")
     subcategory = models.ForeignKey(Subcategory, null=True, blank=True, on_delete=models.CASCADE, verbose_name="subcategory", related_name="SubCategory")
 
-
     def __str__(self):
         return self.title
 
 
+class Cart(models.Model):
+    product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE, verbose_name="product")
+    items = models.IntegerField(null=True, blank=True,)
+
+    def __str__(self):
+        return str(self.product) + " " + str(self.items)

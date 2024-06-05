@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
+
+
 # Create your views here.
 
 
@@ -11,8 +13,12 @@ def index(request):
     return render(request, 'pages/index.html', context)
 
 
-def details(request):
-    return render(request, 'pages/details.html')
+def details(request, id):
+    product = {
+        "id_product": Product.objects.get(id=id),
+    }
+
+    return render(request, 'pages/details.html', product)
 
 
 def shop(request):
