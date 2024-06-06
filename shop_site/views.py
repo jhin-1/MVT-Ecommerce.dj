@@ -26,4 +26,34 @@ def shop(request):
 
 
 def cart(request):
-    return render(request, 'pages/cart.html')
+    view_cart = {
+        "items_cart": Cart.objects.all().order_by("id"),
+
+    }
+
+    return render(request, 'pages/cart.html', view_cart)
+
+
+def add(request):
+    carts = Cart.objects.all().order_by("id")
+
+    context = {
+        "items_cart": carts,
+    }
+
+    return render(request, 'pages/cart.html', context)
+
+
+def items_cart(request, id):
+    quantity_item = Cart.objects.filter(product_id=id).first()
+    if quantity_item:
+        quantity_item.items = 0
+        quantity_item.save()
+    return redirect('cart')
+
+
+def delete_item_cart(request, id):
+    cart_item = Cart.objects.filter(product_id=id).first()
+    if cart_item:
+        cart_item.delete()
+    return redirect('cart')

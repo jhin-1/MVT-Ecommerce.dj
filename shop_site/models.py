@@ -57,7 +57,8 @@ class Product(models.Model):
 
 class Cart(models.Model):
     product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE, verbose_name="product")
-    items = models.IntegerField(null=True, blank=True,)
+    items = models.IntegerField(default=0, blank=True, null=True, verbose_name="items")
+    total = models.IntegerField(default=0, blank=True, null=True, verbose_name="total")
 
     def __str__(self):
-        return str(self.product) + " " + str(self.items)
+        return str(self.product)
