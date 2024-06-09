@@ -25,7 +25,7 @@ def shop(request):
     return render(request, 'pages/shop.html')
 
 
-def cart(request):
+def all_cart(request):
     view_cart = {
         "items_cart": Cart.objects.all().order_by("id"),
 
@@ -35,20 +35,29 @@ def cart(request):
 
 
 def add(request):
-    carts = Cart.objects.all().order_by("id")
+    if request.method == "POST":
+        add_cart = Cart.objects.create(
+            product_id=request.POST.get("product_id"), items=1
 
-    context = {
-        "items_cart": carts,
-    }
-
-    return render(request, 'pages/cart.html', context)
+        )
+        add_cart.total = add_cart.product.discount
+        add_cart.save()
+    return redirect('cart')
 
 
 def items_cart(request, id):
-    quantity_item = Cart.objects.filter(product_id=id).first()
-    if quantity_item:
-        quantity_item.items = 0
-        quantity_item.save()
+    cart_items = Cart.objects.filter(product_id=id).first()
+    if request.method == "POST":
+        items_quantity = int(request.POST.get("items"))
+        if items_quantity > 0:
+            if cart_items:
+                cart_items.items = items_quantity
+                cart_items.total = cart_items.product.discount * items_quantity
+                cart_items.save()
+        else:
+            cart_items.delete()
+            return redirect('cart')
+
     return redirect('cart')
 
 
@@ -57,3 +66,6 @@ def delete_item_cart(request, id):
     if cart_item:
         cart_item.delete()
     return redirect('cart')
+
+
+# def cart_summary(request):

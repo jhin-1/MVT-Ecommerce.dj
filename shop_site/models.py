@@ -62,3 +62,10 @@ class Cart(models.Model):
 
     def __str__(self):
         return str(self.product)
+
+
+class Cart_summary(models.Model):
+    cart = models.ManyToManyField(Cart, null=True, blank=True, verbose_name="Cart")
+    shipping = models.IntegerField(default=10, null=True, blank=True, verbose_name='Shipping')
+    subtotal = models.IntegerField(default=0, null=True, blank=True, verbose_name='Subtotal')
+    total = models.IntegerField(default=0, null=True, blank=True, verbose_name='Total')
