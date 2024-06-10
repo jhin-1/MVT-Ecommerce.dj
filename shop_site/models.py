@@ -58,14 +58,12 @@ class Product(models.Model):
 class Cart(models.Model):
     product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE, verbose_name="product")
     items = models.IntegerField(default=0, blank=True, null=True, verbose_name="items")
-    total = models.IntegerField(default=0, blank=True, null=True, verbose_name="total")
+    total_item = models.IntegerField(default=0, blank=True, null=True, verbose_name="total")
+    Subtotal = models.IntegerField(default=0, blank=True, null=True, verbose_name="subtotal")
+    shipping = models.IntegerField(default=0, blank=True, null=True, verbose_name="shipping")
+    total_summary = models.IntegerField(default=0, blank=True, null=True, verbose_name="total_summary")
 
     def __str__(self):
         return str(self.product)
 
 
-class Cart_summary(models.Model):
-    cart = models.ManyToManyField(Cart, null=True, blank=True, verbose_name="Cart")
-    shipping = models.IntegerField(default=10, null=True, blank=True, verbose_name='Shipping')
-    subtotal = models.IntegerField(default=0, null=True, blank=True, verbose_name='Subtotal')
-    total = models.IntegerField(default=0, null=True, blank=True, verbose_name='Total')
