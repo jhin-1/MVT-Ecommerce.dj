@@ -14,6 +14,9 @@ def index(request):
     return render(request, 'pages/index.html', context)
 
 
+
+
+
 def details(request, id):
     product = {
         "id_product": Product.objects.get(id=id),
@@ -23,7 +26,11 @@ def details(request, id):
 
 
 def shop(request):
-    return render(request, 'pages/shop.html')
+    try:
+        products = Product.objects.all()
+    except:
+        products = None
+    return render(request, 'pages/shop.html', {'products': products})
 
 
 def all_cart(request):
