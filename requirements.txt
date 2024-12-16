@@ -23,7 +23,7 @@ duplicity==0.8.21
 fasteners==0.14.1
 future==0.18.2
 httplib2==0.20.2
-idna==3.3
+idna==3.7
 importlib-metadata==4.6.4
 jeepney==0.7.1
 keyring==23.5.0
